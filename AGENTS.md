@@ -1,4 +1,5 @@
 # AGENTS.md
+Todas as instruções neste arquivo devem ser seguidas **estritamente**, sem exceções.
 
 ## 🧱 Tecnologias Utilizadas
 
@@ -7,7 +8,8 @@
 - MySQL (via `DB_CONNECTION=mysql`)
 - PHPUnit (pré-configurado com `phpunit.xml`)
 - Sanctum (para autenticação API, se necessário)
-- Faker (para factories em testes)
+- Faker: usado exclusivamente em testes de feature, nunca em testes unitários.
+
 
 ## 📦 Instalação e Setup
 
@@ -26,6 +28,9 @@ php artisan serve
 ---
 
 ## 🧪 Testes
+⚠️ IMPORTANTE: Em testes unitários, **nunca utilize `Model::factory()`**.  
+Use sempre `new Model([...])` com dados manuais e controle direto.  
+Apenas testes de feature podem usar factories.
 
 Para rodar todos os testes:
 
@@ -68,7 +73,6 @@ Utilizamos uma estrutura de domínio e separação de responsabilidades. Sempre 
 - ✅ O nome de cada arquivo deve seguir o padrão Laravel.
 - ✅ Todas as migrations, requests, controllers, services, repositories e testes devem ser criados com nomes claros e alinhados.
 - ✅ As factories devem ser utilizadas apenas em testes de feature.
-- ❌ Nos testes unitários, **não utilize `Model::factory()`**. Use instâncias diretas com `new Model([...])` para evitar dependências externas.
 - ❌ Nunca utilizar comentários no código.
 - ❌ Nunca escrever código em português.
 - ❌ Nunca deixar arquivos faltando.
@@ -98,7 +102,7 @@ Utilizamos uma estrutura de domínio e separação de responsabilidades. Sempre 
 
 ---
 
-## 🌿 Padrão de Branches
+## 🌿 Git: Branches e Commits
 
 - Os nomes das branches devem ser sempre escritos **100% em inglês**, seguindo o padrão kebab-case (`nome-em-minusculo-com-hifens`).
 - Nunca utilize nomes em português, nem mistos.
