@@ -1,20 +1,17 @@
-
 # AGENTS.md
 
 ## 🧱 Tecnologias Utilizadas
 
 - Laravel 10.48.29
 - PHP 8.1.32
-- MySQL (`DB_CONNECTION=mysql`)
+- MySQL (via `DB_CONNECTION=mysql`)
 - PHPUnit (pré-configurado com `phpunit.xml`)
-- Faker (para criação de dados fictícios nos testes)
-- Laravel Sanctum (autenticação por token, se necessário)
+- Sanctum (para autenticação API, se necessário)
+- Faker (para factories em testes)
 
----
+## 📦 Instalação e Setup
 
-## 📦 Setup e Instalação
-
-Para configurar o ambiente local:
+Execute os comandos abaixo para preparar o ambiente:
 
 ```bash
 composer install
@@ -36,64 +33,65 @@ Para rodar todos os testes:
 php artisan test
 ```
 
-Estrutura esperada:
+Você pode também rodar testes específicos com:
 
-- `tests/Feature/`: testes de rotas, controllers, endpoints
-- `tests/Unit/`: testes de regras internas, services ou helpers
-
-Use `Model Factories` e `Faker` para simular dados nos testes.  
-Evite valores fixos. Prefira banco em memória (SQLite) nos testes, se possível.
+```bash
+php artisan test --filter=NomeDoTeste
+```
 
 ---
 
 ## 📁 Estrutura de Pastas
 
-| Caminho                    | Descrição                                    |
-|----------------------------|----------------------------------------------|
-| `app/Http/Controllers/`    | Controllers da aplicação                     |
-| `app/Models/`              | Models Eloquent                              |
-| `routes/api.php`           | Rotas da API REST                            |
-| `database/migrations/`     | Estrutura do banco de dados                  |
-| `database/seeders/`        | Dados fictícios iniciais (opcional)          |
-| `tests/Feature/`           | Testes de API e integração                   |
-| `tests/Unit/`              | Testes unitários de lógica interna           |
+Utilizamos uma estrutura de domínio e separação de responsabilidades. Sempre que for criar um novo módulo (ex: Produto), crie:
+
+- `app/Http/Controllers/ProductController.php`
+- `app/Services/ProductService.php`
+- `app/Repositories/ProductRepository.php`
+- `app/Http/Requests/Product/ProductStoreRequest.php`
+- `app/Http/Requests/Product/ProductUpdateRequest.php`
+- `app/Models/Product.php`
+- `routes/api.php` (adicione aqui as rotas)
+- `tests/Feature/ProductTest.php` (testes de feature obrigatórios)
+- `tests/Unit/ProductServiceTest.php` (testes de unidade obrigatórios)
 
 ---
 
-## 🤖 Regras para o Codex (Agente de Código)
+## ⚙️ Regras para o Codex
 
-> ❗ **Siga todas as instruções abaixo com precisão.**
-
-- ✅ Sempre escreva **código limpo, direto e legível**.
-- ✅ Toda nomenclatura de classes, arquivos, métodos e variáveis deve ser em **inglês**.
-- ✅ **Não crie comentários** de explicação.
-- 🚫 **Não crie abstrações desnecessárias** (como serviços ou camadas extras sem necessidade real).
-- ✅ **Crie sempre os testes automatizados necessários** para qualquer funcionalidade implementada.
-- ✅ Prefira `Feature Tests` para qualquer endpoint, rota ou controller criado.
-- ✅ Use `Unit Tests` apenas para lógica puramente interna (ex: regras em Services, Helpers).
-- ✅ Utilize `Model Factories` com `Faker` para geração de dados nos testes.
-- ✅ Use comandos como `php artisan make:controller`, `make:model`, `make:test`, etc.
-- ✅ Nomeie branches com o prefixo `codex/`, por exemplo: `codex/add-student-endpoint`.
-- ✅ Commits devem ser claros e objetivos, como:
-  - `Add GET /api/students endpoint`
-  - `Create StudentController with test coverage`
-- 🚫 **Nunca adicione dependências externas sem autorização.**
-- 🚫 **Não edite arquivos de configuração global** (como `app.php`, `config/database.php`, etc) sem instrução explícita.
-- 🚫 **Não altere estrutura de diretórios** já existente no projeto.
+- ✅ O código deve ser sempre criado em **inglês** e **sem comentários** de explicação.
+- ✅ Siga sempre os padrões do Laravel, não invente estrutura nova.
+- ✅ Utilize sempre injeção de dependência via construtor.
+- ✅ Utilize `Request` para validação, nunca dentro do controller.
+- ✅ Crie `Service` e `Repository` sempre que possível.
+- ✅ Crie todos os testes necessários junto com os arquivos.
+- ✅ O nome de cada arquivo deve seguir o padrão Laravel.
+- ✅ Todas as migrations, requests, controllers, services, repositories e testes devem ser criados com nomes claros e alinhados.
+- ✅ As factories devem ser utilizadas apenas em testes de feature.
+- ❌ Nos testes unitários, **não utilize `Model::factory()`**. Use instâncias diretas com `new Model([...])` para evitar dependências externas.
+- ❌ Nunca utilizar comentários no código.
+- ❌ Nunca escrever código em português.
+- ❌ Nunca deixar arquivos faltando.
 
 ---
 
-## ✨ Estilo de Código
+## 🌍 Convenções de Linguagem e Nomenclatura
 
-- Siga o padrão **PSR-12**.
-- Use Laravel Pint para formatação de código:
-  ```bash
-  ./vendor/bin/pint
-  ```
-- Use nomes objetivos em inglês para variáveis, métodos e arquivos (ex: `getAllStudents`, `storeUser`, `StudentController`).
-- Evite comentários desnecessários. O código deve se explicar sozinho.
+- Todo o **código, nomes de arquivos, nomes de pastas, nomes de classes, métodos e variáveis** devem ser escritos **inteiramente em inglês**.
+- Todas as **branches do Git**, **mensagens de commit** e **títulos e descrições de pull requests** também devem ser **escritas 100% em inglês**.
+- Nunca misture português com inglês em nenhuma parte do código ou operações do Git.
+- Não inclua comentários explicativos a menos que solicitado explicitamente. Mantenha o código limpo e autoexplicativo.
 
 ---
 
-Este arquivo serve como guia para agentes automatizados (como Codex do ChatGPT) e para desenvolvedores que colaborarem com este repositório.  
-**Siga todas as orientações para manter a padronização, qualidade e confiabilidade do código.**
+## 📚 Documentação da API
+
+- Sempre que uma nova rota for criada ou modificada (em `routes/api.php`), a documentação da API deve ser atualizada.
+- A documentação deve estar em `docs/api.md`, no formato Markdown.
+- Para cada endpoint, inclua:
+  - Método HTTP (GET, POST, PUT, DELETE, etc.)
+  - Caminho da rota
+  - Campos de entrada com validações (se aplicável)
+  - Exemplo de requisição e de resposta (em JSON)
+- Toda a documentação deve estar em **inglês**.
+- Nunca deixar endpoints sem documentação.
