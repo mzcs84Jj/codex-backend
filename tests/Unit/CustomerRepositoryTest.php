@@ -14,7 +14,8 @@ class CustomerRepositoryTest extends TestCase
     public function test_all_returns_all_customers(): void
     {
         foreach (range(1, 3) as $i) {
-            Customer::create(['name' => "Customer $i", 'email' => "c$i@example.com"]);
+            $customer = new Customer(['name' => "Customer $i", 'email' => "c$i@example.com"]);
+            $customer->save();
         }
 
         $repository = new CustomerRepository();
@@ -35,7 +36,8 @@ class CustomerRepositoryTest extends TestCase
 
     public function test_update_modifies_customer(): void
     {
-        $customer = Customer::create(['name' => 'Old', 'email' => 'old@example.com']);
+        $customer = new Customer(['name' => 'Old', 'email' => 'old@example.com']);
+        $customer->save();
         $data = ['name' => 'Updated', 'email' => 'updated@example.com'];
 
         $repository = new CustomerRepository();
@@ -46,7 +48,8 @@ class CustomerRepositoryTest extends TestCase
 
     public function test_delete_removes_customer(): void
     {
-        $customer = Customer::create(['name' => 'Delete', 'email' => 'del@example.com']);
+        $customer = new Customer(['name' => 'Delete', 'email' => 'del@example.com']);
+        $customer->save();
 
         $repository = new CustomerRepository();
         $repository->delete($customer);
