@@ -42,7 +42,7 @@ class SaleRepository
                     $sale->saleProducts()->create($product);
                 }
             }
-            return $sale->load('saleProducts');
+            return $sale->refresh()->load('saleProducts');
         });
     }
 
