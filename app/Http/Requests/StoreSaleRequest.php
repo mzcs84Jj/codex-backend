@@ -15,9 +15,9 @@ class StoreSaleRequest extends FormRequest
     {
         return [
             'date' => ['required', 'date'],
-            'customer_id' => ['required', 'exists:customers,id'],
+            'customer_id' => ['required', 'integer'],
             'products' => ['required', 'array', 'min:1'],
-            'products.*.product_id' => ['required', 'exists:products,id'],
+            'products.*.product_id' => ['required', 'integer'],
             'products.*.quantity' => ['required', 'integer', 'min:1'],
             'products.*.price' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
         ];

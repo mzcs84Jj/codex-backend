@@ -15,6 +15,11 @@ class Sale extends Model
         'total',
     ];
 
+    protected $casts = [
+        'date' => 'date',
+        'total' => 'float',
+    ];
+
     public function saleProducts()
     {
         return $this->hasMany(SaleProduct::class);
