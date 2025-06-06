@@ -19,12 +19,9 @@ class SaleRepository
             $products = $data['products'];
             unset($data['products']);
             $sale = Sale::create($data);
-            $total = 0;
             foreach ($products as $product) {
                 $sale->saleProducts()->create($product);
-                $total += $product['price'] * $product['quantity'];
             }
-            $sale->update(['total' => $total]);
             return $sale->load('saleProducts');
         });
     }
@@ -41,12 +38,9 @@ class SaleRepository
             $sale->save();
             if (isset($data['products'])) {
                 $sale->saleProducts()->delete();
-                $total = 0;
                 foreach ($data['products'] as $product) {
                     $sale->saleProducts()->create($product);
-                    $total += $product['price'] * $product['quantity'];
                 }
-                $sale->update(['total' => $total]);
             }
             return $sale->load('saleProducts');
         });

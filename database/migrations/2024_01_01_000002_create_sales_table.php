@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->date('date');
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete();
-            $table->decimal('total', 10, 2);
+            $table->decimal('total', 10, 2)->default(0);
             $table->timestamps();
         });
     }

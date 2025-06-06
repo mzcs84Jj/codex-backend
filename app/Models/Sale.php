@@ -24,4 +24,14 @@ class Sale extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function updateTotal(): void
+    {
+        $total = 0;
+        foreach ($this->saleProducts as $item) {
+            $total += $item->price * $item->quantity;
+        }
+        $this->total = $total;
+        $this->save();
+    }
 }

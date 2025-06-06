@@ -25,4 +25,19 @@ class SaleProduct extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    protected static function booted(): void
+    {
+        static::saved(function (SaleProduct $saleProduct) {
+            if ($saleProduct->sale) {
+                $saleProduct->sale->updateTotal();
+            }
+        });
+
+        static::deleted(function (SaleProduct $saleProduct) {
+            if ($saleProduct->sale) {
+                $saleProduct->sale->updateTotal();
+            }
+        });
+    }
 }
