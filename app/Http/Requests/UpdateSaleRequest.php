@@ -15,9 +15,9 @@ class UpdateSaleRequest extends FormRequest
     {
         return [
             'date' => ['sometimes', 'required', 'date'],
-            'customer_id' => ['sometimes', 'required', 'exists:customers,id'],
+            'customer_id' => ['sometimes', 'required', 'integer'],
             'products' => ['sometimes', 'required', 'array', 'min:1'],
-            'products.*.product_id' => ['required_with:products', 'exists:products,id'],
+            'products.*.product_id' => ['required_with:products', 'integer'],
             'products.*.quantity' => ['required_with:products', 'integer', 'min:1'],
             'products.*.price' => ['required_with:products', 'regex:/^\d+(\.\d{1,2})?$/'],
         ];

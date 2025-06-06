@@ -16,6 +16,10 @@ class SaleProduct extends Model
         'price',
     ];
 
+    protected $casts = [
+        'price' => 'float',
+    ];
+
     public function sale()
     {
         return $this->belongsTo(Sale::class);
