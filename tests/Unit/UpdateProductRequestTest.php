@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Http\Requests\UpdateProductRequest;
-use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Tests\TestCase;
 
@@ -14,7 +13,10 @@ class UpdateProductRequestTest extends TestCase
         $request = new UpdateProductRequest();
         $rules = $request->rules();
 
-        $data = Product::factory()->make()->toArray();
+        $data = [
+            'description' => 'New description',
+            'price' => '15.00',
+        ];
         $validator = Validator::make($data, $rules);
 
         $this->assertTrue($validator->passes());

@@ -45,7 +45,7 @@ class ProductServiceTest extends TestCase
     {
         $repository = Mockery::mock(ProductRepository::class);
         $service = new ProductService($repository);
-        $product = Product::factory()->make();
+        $product = new Product(['description' => 'Old', 'price' => 10]);
         $data = ['description' => 'New', 'price' => 20];
 
         $repository->shouldReceive('update')->with($product, $data)->once()->andReturn($product);
@@ -57,7 +57,7 @@ class ProductServiceTest extends TestCase
     {
         $repository = Mockery::mock(ProductRepository::class);
         $service = new ProductService($repository);
-        $product = Product::factory()->make();
+        $product = new Product(['description' => 'Delete', 'price' => 5]);
 
         $repository->shouldReceive('delete')->with($product)->once();
 
