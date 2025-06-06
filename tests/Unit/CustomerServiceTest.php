@@ -7,7 +7,7 @@ use App\Repositories\CustomerRepository;
 use App\Services\CustomerService;
 use Illuminate\Database\Eloquent\Collection;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class CustomerServiceTest extends TestCase
 {

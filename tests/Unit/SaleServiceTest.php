@@ -7,7 +7,7 @@ use App\Repositories\SaleRepository;
 use App\Services\SaleService;
 use Illuminate\Database\Eloquent\Collection;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class SaleServiceTest extends TestCase
 {
