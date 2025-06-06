@@ -95,3 +95,15 @@ Utilizamos uma estrutura de domínio e separação de responsabilidades. Sempre 
   - Exemplo de requisição e de resposta (em JSON)
 - Toda a documentação deve estar em **inglês**.
 - Nunca deixar endpoints sem documentação.
+
+---
+
+## 🌿 Padrão de Branches
+
+- Os nomes das branches devem ser sempre escritos **100% em inglês**, seguindo o padrão kebab-case (`nome-em-minusculo-com-hifens`).
+- Nunca utilize nomes em português, nem mistos.
+- Exemplos válidos:
+  - `add-product-endpoints`
+  - `fix-unit-tests`
+  - `update-api-docs`
+- Evite nomes genéricos como `ajustes`, `correcoes`, `melhorias`.
