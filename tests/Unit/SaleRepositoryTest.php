@@ -101,4 +101,22 @@ class SaleRepositoryTest extends TestCase
 
         $this->assertDatabaseMissing('sales', ['id' => $sale->id]);
     }
+
+    public function test_total_updates_when_sale_product_changes(): void
+    {
+        $customer = new Customer(['name' => 'Calc', 'email' => 'calc@example.com']);
+        $customer->save();
+        $product = new Product(['description' => 'First', 'price' => 2]);
+        $product->save();
+        $sale = Sale::create(['date' => '2024-01-01', 'customer_id' => $customer->id]);
+        $sale->saleProducts()->create(['product_id' => $product->id, 'quantity' => 2, 'price' => $product->price]);
+        $product2 = new Product(['description' => 'Second', 'price' => 3]);
+        $product2->save();
+        $sale->saleProducts()->create(['product_id' => $product2->id, 'quantity' => 1, 'price' => $product2->price]);
+        $sale->saleProducts()->first()->delete();
+
+        $expected = $product2->price;
+
+        $this->assertDatabaseHas('sales', ['id' => $sale->id, 'total' => $expected]);
+    }
 }
