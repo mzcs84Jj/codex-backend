@@ -32,6 +32,7 @@ class Sale extends Model
 
     public function updateTotal(): void
     {
+        $this->load('saleProducts');
         $total = 0;
         foreach ($this->saleProducts as $item) {
             $total += $item->price * $item->quantity;
