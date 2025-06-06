@@ -14,8 +14,7 @@ class ProductRepositoryTest extends TestCase
     public function test_all_returns_all_products(): void
     {
         foreach (range(1, 3) as $i) {
-            $product = new Product(['description' => "Product $i", 'price' => $i]);
-            $product->save();
+            Product::create(['description' => "Product $i", 'price' => $i]);
         }
 
         $repository = new ProductRepository();
@@ -36,8 +35,7 @@ class ProductRepositoryTest extends TestCase
 
     public function test_update_modifies_product(): void
     {
-        $product = new Product(['description' => 'Old', 'price' => 5]);
-        $product->save();
+        $product = Product::create(['description' => 'Old', 'price' => 5]);
         $data = ['description' => 'Updated', 'price' => 6.5];
 
         $repository = new ProductRepository();
@@ -48,8 +46,7 @@ class ProductRepositoryTest extends TestCase
 
     public function test_delete_removes_product(): void
     {
-        $product = new Product(['description' => 'Delete', 'price' => 3]);
-        $product->save();
+        $product = Product::create(['description' => 'Delete', 'price' => 3]);
 
         $repository = new ProductRepository();
         $repository->delete($product);
